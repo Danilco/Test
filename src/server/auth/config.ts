@@ -30,19 +30,19 @@ declare module "next-auth" {
  *
  * @see https://next-auth.js.org/configuration/options
  */
+const providers = [];
+
+if (process.env.AUTH_DISCORD_ID && process.env.AUTH_DISCORD_SECRET) {
+  providers.push(
+    DiscordProvider({
+      clientId: process.env.AUTH_DISCORD_ID,
+      clientSecret: process.env.AUTH_DISCORD_SECRET,
+    }),
+  );
+}
+
 export const authConfig = {
-  providers: [
-    DiscordProvider,
-    /**
-     * ...add more providers here.
-     *
-     * Most other providers require a bit more work than the Discord provider. For example, the
-     * GitHub provider requires you to add the `refresh_token_expires_in` field to the Account
-     * model. Refer to the NextAuth.js docs for the provider you want to use. Example:
-     *
-     * @see https://next-auth.js.org/providers/github
-     */
-  ],
+  providers,
   adapter: PrismaAdapter(db),
   callbacks: {
     session: ({ session, user }) => ({
