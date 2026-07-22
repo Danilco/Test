@@ -47,7 +47,7 @@ export function HeaderSection() {
           aria-label="Главное меню"
         >
           <a href="#services" onClick={() => setMenuOpen(false)} className="transition hover:text-slate-200">
-            Услуги
+            Услугии
           </a>
           <a href="#team" onClick={() => setMenuOpen(false)} className="transition hover:text-slate-200">
             Специалисты
