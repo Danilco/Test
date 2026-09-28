@@ -14,15 +14,11 @@ function PhotoFrame() {
       <div className="absolute -bottom-6 left-4 h-[82%] w-[90%] rounded-[2rem] bg-[linear-gradient(135deg,rgba(28,167,160,0.18),rgba(19,65,71,0.08))] shadow-[0_28px_60px_rgba(16,91,96,0.15)]" />
       <div className="relative overflow-hidden rounded-[2.25rem] border border-white/60 bg-[linear-gradient(145deg,#ebfbf9_0%,#d7f6f1_28%,#effefb_100%)] p-3 shadow-[0_28px_60px_rgba(16,91,96,0.12)]">
         <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] border border-[rgba(12,62,60,0.08)] bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.9),rgba(165,235,228,0.55)_25%,rgba(148,202,196,0.25)_55%,rgba(255,255,255,0.8)_100%)]">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_25%,rgba(255,255,255,0.9),transparent_18%),radial-gradient(circle_at_70%_35%,rgba(111,213,208,0.28),transparent_24%),linear-gradient(135deg,rgba(255,255,255,0.35),rgba(52,160,154,0.06))]" />
-          <div className="absolute bottom-0 left-0 right-0 h-[46%] bg-[linear-gradient(180deg,rgba(16,98,91,0.0),rgba(16,98,91,0.12))]" />
-
-          <div className="absolute left-[18%] top-[18%] h-36 w-36 rounded-full bg-[rgba(255,255,255,0.82)] shadow-[0_18px_40px_rgba(20,154,140,0.16)]" />
-          <div className="absolute left-[39%] top-[25%] h-28 w-28 rounded-full bg-[rgba(23,118,110,0.12)]" />
-          <div className="absolute bottom-[12%] left-[15%] h-[34%] w-[70%] rounded-[32%_32%_18%_18%] bg-[linear-gradient(180deg,rgba(99,206,194,0.8),rgba(29,142,136,0.7))] shadow-[0_20px_40px_rgba(20,154,140,0.18)]" />
-          <div className="absolute bottom-[14%] left-[24%] h-[18%] w-[52%] rounded-[50%] bg-[rgba(255,255,255,0.36)]" />
-          <div className="absolute bottom-[19%] left-[28%] h-5 w-5 rounded-full bg-[rgba(255,255,255,0.75)]" />
-          <div className="absolute bottom-[19%] right-[28%] h-5 w-5 rounded-full bg-[rgba(255,255,255,0.75)]" />
+          <img
+            src="/images/hero.png"
+            alt="Логопед помогает ребёнку говорить уверенно"
+            className="h-full w-full object-cover"
+          />
         </div>
       </div>
 
