@@ -24,7 +24,7 @@ export function HeaderSection() {
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_left,_rgba(29,164,150,0.16),transparent_25%)]" />
       <div className="relative mx-auto flex max-w-7xl flex-col gap-4 px-4 py-3 sm:px-6 lg:flex-row lg:items-center lg:justify-between">
         <div className="flex items-center justify-between gap-4">
-          <div className="text-lg font-semibold text-white">Онлайн-логопед</div>
+          <div className="text-lg font-semibold text-white">Онлайн логопед</div>
           <button
             type="button"
             className="inline-flex items-center justify-center rounded-full border border-white/25 bg-white/5 p-2 text-white transition hover:bg-white/10 lg:hidden"

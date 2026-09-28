@@ -6,10 +6,10 @@ import { Inter, Manrope } from "next/font/google";
 import { TRPCReactProvider } from "~/trpc/react";
 
 export const metadata: Metadata = {
-  title: "Онлайн-логопед для детей | Развитие речи и подготовка к школе",
+  title: "Онлайн логопед для детей | Развитие речи и подготовка к школе",
   description:
     "Онлайн-занятия с логопедом для детей: постановка звуков, развитие речи, грамотность и уверенность в общении.",
-  applicationName: "Онлайн-логопед",
+  applicationName: "Онлайн логопед",
   keywords: [
     "логопед для детей",
     "онлайн логопед",
@@ -18,17 +18,17 @@ export const metadata: Metadata = {
     "подготовка к школе",
   ],
   openGraph: {
-    title: "Онлайн-логопед для детей",
+    title: "Онлайн логопед для детей",
     description:
       "Помогаю детям говорить правильно, уверенно и свободно через комфортные онлайн-занятия.",
     url: "https://example.com",
-    siteName: "Онлайн-логопед",
+    siteName: "Онлайн логопед",
     locale: "ru_RU",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Онлайн-логопед для детей",
+    title: "Онлайн логопед для детей",
     description:
       "Индивидуальные занятия для детей по развитию речи и постановке звуков онлайн.",
   },

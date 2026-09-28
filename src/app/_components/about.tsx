@@ -55,7 +55,7 @@ export function AboutSection() {
           >
             <p className="text-sm font-medium uppercase tracking-[0.28em] text-[var(--color-primary-strong)]">Обо мне</p>
             <h2 className="mt-5 text-3xl font-bold text-[var(--color-text)] sm:text-4xl lg:text-5xl">
-              Я — логопед, который помогает детям развивать речь в комфортной и доброжелательной атмосфере.
+              Я — Анастасия, логопед, который помогает детям развивать речь в комфортной и доброжелательной атмосфере.
             </h2>
             <p className="mt-5 text-lg leading-8 text-[var(--color-text-soft)]">
               На занятиях мы не просто выполняем упражнения — мы учимся через игру, общение и

@@ -58,7 +58,7 @@ export function HeroSection() {
           <div className="relative grid items-center gap-10 lg:grid-cols-[1.08fr_0.92fr]">
             <div className="max-w-xl">
               <div className="inline-flex items-center rounded-full border border-[rgba(12,62,60,0.08)] bg-white/60 px-4 py-2 text-[0.76rem] font-medium uppercase tracking-[0.22em] text-[var(--color-primary-strong)] opacity-0 [animation:fadeUp_0.7s_ease_forwards]">
-                Онлайн-логопед — занятия с заботой о речи ребёнка
+                Онлайн логопед — занятия с заботой о речи ребёнка
               </div>
 
               <h1 className="mt-7 text-4xl font-extrabold leading-[0.98] text-[var(--color-text)] opacity-0 [animation:fadeUp_0.8s_ease_forwards_0.12s] sm:text-5xl lg:text-7xl">
@@ -66,7 +66,7 @@ export function HeroSection() {
               </h1>
 
               <p className="mt-6 max-w-xl text-lg leading-8 text-[var(--color-text-soft)] opacity-0 [animation:fadeUp_0.8s_ease_forwards_0.24s] sm:text-xl">
-                Онлайн-занятия с логопедом в удобное время из дома. Индивидуальный подход к каждому ребёнку,
+                Онлайн-занятия с Анастасией в удобное время из дома. Индивидуальный подход к каждому ребёнку,
                 интересные задания и занятия в игровой форме.
               </p>
 

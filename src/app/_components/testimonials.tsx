@@ -102,9 +102,13 @@ function ReviewDialog({ review, onClose }: { review: Review | null; onClose: () 
         return;
       }
 
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
+      const first = focusable[0] ?? null;
+      const last = focusable[focusable.length - 1] ?? first;
       const activeElement = document.activeElement as HTMLElement | null;
+
+      if (!first || !last) {
+        return;
+      }
 
       if (event.shiftKey && activeElement === first) {
         event.preventDefault();

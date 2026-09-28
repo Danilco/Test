@@ -23,7 +23,7 @@ const advantages = [
 ];
 
 export function ReviewsSection() {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useReducedMotion() ?? false;
   const motionCard = reduceMotion ? reducedMotionVariants : cardRevealVariant;
   const motionIcon = reduceMotion ? reducedMotionVariants : iconPopVariant;
 

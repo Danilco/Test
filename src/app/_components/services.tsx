@@ -58,7 +58,7 @@ function ServiceCard({
 }
 
 export function ServicesSection() {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useReducedMotion() ?? false;
   const motionCard = reduceMotion ? reducedMotionVariants : cardRevealVariant;
   const motionIcon = reduceMotion ? reducedMotionVariants : iconPopVariant;
 

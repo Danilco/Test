@@ -25,7 +25,7 @@ const steps = [
 ];
 
 export function TeamSection() {
-  const reduceMotion = useReducedMotion();
+  const reduceMotion = useReducedMotion() ?? false;
   const motionCard = reduceMotion ? reducedMotionVariants : cardRevealVariant;
 
   return (
