@@ -3,12 +3,12 @@
 import { useInView } from "react-intersection-observer";
 import { BookOpenText, HeartHandshake, Sparkles } from "lucide-react";
 
-const aboutPhotoPath = "/images/about-therapist.jpg";
+import { stats } from "~/data/stats";
 
 const facts = [
-  { icon: Sparkles, value: "12+", label: "лет практики" },
-  { icon: HeartHandshake, value: "1:1", label: "индивидуально" },
-  { icon: BookOpenText, value: "90%", label: "комфорта" },
+  { icon: Sparkles, ...stats[0] },
+  { icon: HeartHandshake, ...stats[1] },
+  { icon: BookOpenText, ...stats[2] },
 ];
 
 function PhotoFrame() {

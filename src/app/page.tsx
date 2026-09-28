@@ -5,6 +5,7 @@ import { HeroSection } from "~/app/_components/hero";
 import { ReviewsSection } from "~/app/_components/reviews";
 import { ServicesSection } from "~/app/_components/services";
 import { TeamSection } from "~/app/_components/team";
+import { TestimonialsSection } from "~/app/_components/testimonials";
 
 export default function Home() {
   return (
@@ -17,6 +18,7 @@ export default function Home() {
       <ServicesSection />
       <TeamSection />
       <ReviewsSection />
+      <TestimonialsSection />
       <ContactSection />
     </main>
   );

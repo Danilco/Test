@@ -1,15 +1,11 @@
-import { Activity, Heart, House, Sparkles } from "lucide-react";
+import { Activity, House, Sparkles } from "lucide-react";
+
+import { stats as heroStats } from "~/data/stats";
 
 const badges = [
   { icon: Sparkles, label: "Игровой формат" },
   { icon: Activity, label: "Индивидуально" },
   { icon: House, label: "Онлайн из дома" },
-];
-
-const stats = [
-  { value: 90, suffix: "%", label: "комфорта" },
-  { value: 1, suffix: ":1", label: "подход" },
-  { value: 12, suffix: "+", label: "месяцев роста" },
 ];
 
 function PhotoFrame() {
@@ -54,7 +50,7 @@ function PhotoFrame() {
 
 export function HeroSection() {
   return (
-    <section className="relative overflow-hidden py-20 sm:py-24 lg:py-28">
+    <section id="hero" className="relative overflow-hidden py-20 sm:py-24 lg:py-28">
       <div className="float-orb pointer-events-none absolute -left-16 top-8 h-64 w-64 rounded-full bg-[rgba(28,167,160,0.14)] blur-3xl" />
       <div className="float-orb delay-1 pointer-events-none absolute right-10 top-24 h-72 w-72 rounded-full bg-[rgba(118,220,209,0.18)] blur-3xl" />
       <div className="float-orb delay-2 pointer-events-none absolute bottom-8 left-1/2 h-52 w-52 -translate-x-1/2 rounded-full bg-[rgba(52,196,181,0.10)] blur-3xl" />
@@ -70,7 +66,7 @@ export function HeroSection() {
               </div>
 
               <h1 className="mt-7 text-4xl font-extrabold leading-[0.98] text-[var(--color-text)] opacity-0 [animation:fadeUp_0.8s_ease_forwards_0.12s] sm:text-5xl lg:text-7xl">
-                Помогаю детям говорить уверенно, правильно и свободно
+                Помогаю детям говорить уверенно, правильнее и свободнее
               </h1>
 
               <p className="mt-6 max-w-xl text-lg leading-8 text-[var(--color-text-soft)] opacity-0 [animation:fadeUp_0.8s_ease_forwards_0.24s] sm:text-xl">
@@ -88,12 +84,9 @@ export function HeroSection() {
               </div>
 
               <div className="mt-8 grid max-w-lg grid-cols-3 gap-3 opacity-0 [animation:fadeUp_0.8s_ease_forwards_0.52s]">
-                {stats.map((stat) => (
+                {heroStats.map((stat) => (
                   <div key={stat.label} className="rounded-[1.35rem] border border-white/60 bg-white/55 px-3 py-3 text-center shadow-[0_10px_24px_rgba(18,97,90,0.06)]">
-                    <div className="text-2xl font-extrabold text-[var(--color-primary-strong)]">
-                      {stat.value}
-                      <span className="text-base">{stat.suffix}</span>
-                    </div>
+                    <div className="text-2xl font-extrabold text-[var(--color-primary-strong)]">{stat.value}</div>
                     <div className="mt-1 text-[0.68rem] uppercase tracking-[0.12em] text-[var(--color-text-muted)]">
                       {stat.label}
                     </div>

@@ -19,15 +19,18 @@
   --shadow-glow: 0 0 0 1px rgba(255, 255, 255, 0.2), 0 18px 40px rgba(28, 167, 160, 0.28);
   --radius-xl: 24px;
   --radius-2xl: 28px;
-  --section-spacing: clamp(4.5rem, 9vw, 8rem);
+  --section-spacing: clamp(4rem, 7vw, 6.5rem);
 }
 
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 6rem;
+  overflow-x: hidden;
 }
 
 body {
+  margin: 0;
+  overflow-x: hidden;
   font-family: var(--font-sans), sans-serif;
   background:
     radial-gradient(circle at top left, rgba(22, 163, 170, 0.08), transparent 28%),
@@ -100,6 +103,21 @@ input {
   }
 }
 
+@keyframes pulseHalo {
+  0% {
+    transform: scale(0.96);
+    opacity: 0.42;
+  }
+  70% {
+    transform: scale(1.18);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.32);
+    opacity: 0;
+  }
+}
+
 @keyframes fadeUp {
   0% {
     opacity: 0;
@@ -144,8 +162,15 @@ input {
   backdrop-filter: blur(18px);
 }
 
+.glass-cta {
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 28px 80px rgba(4, 19, 22, 0.28);
+  backdrop-filter: blur(22px);
+}
+
 .btn-primary,
-.btn-secondary {
+.btn-secondary,
+.btn-glass {
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -169,18 +194,53 @@ input {
   color: white;
 }
 
-.btn-primary::before {
+.btn-primary::before,
+.btn-primary::after {
   content: "";
   position: absolute;
-  inset: 0;
+  inset: -10%;
+  border-radius: inherit;
+  border: 1px solid rgba(151, 242, 230, 0.6);
+  pointer-events: none;
+}
+
+.btn-primary::before {
+  opacity: 0.5;
+  animation: pulseHalo 2.6s ease-out infinite;
+}
+
+.btn-primary::after {
+  animation: pulseHalo 2.6s ease-out 0.8s infinite;
+}
+
+.btn-primary::before {
   background: linear-gradient(120deg, transparent 10%, rgba(255, 255, 255, 0.38) 50%, transparent 90%);
   transform: translateX(-120%) skewX(-18deg);
   animation: shimmer 4.5s ease-in-out infinite;
 }
 
 .btn-primary:hover,
-.btn-secondary:hover {
+.btn-secondary:hover,
+.btn-glass:hover {
   transform: translateY(-2px);
+}
+
+.btn-glass {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: #fff;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 12px 28px rgba(4, 19, 22, 0.15);
+  backdrop-filter: blur(14px);
+}
+
+.btn-glass:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.44);
+}
+
+.cta-pulse {
+  position: relative;
+  isolation: isolate;
 }
 
 .btn-secondary {
