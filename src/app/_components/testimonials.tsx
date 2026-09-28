@@ -305,7 +305,7 @@ export function TestimonialsSection() {
 
         <div className="mt-10">
           <div
-            className="embla -mx-6 overflow-x-clip overflow-y-visible bg-transparent py-6 sm:-mx-8 sm:py-8"
+            className="embla -mx-6 overflow-x-hidden overflow-y-visible bg-transparent py-6 sm:-mx-8 sm:py-8"
             ref={emblaRef}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
@@ -316,7 +316,7 @@ export function TestimonialsSection() {
               {reviews.map((review, index) => (
                 <div
                   key={review.id}
-                  className="embla__slide min-w-0 shrink-0 px-2 md:basis-1/2 lg:basis-1/3"
+                  className="embla__slide min-w-0 shrink-0 basis-full px-2 md:basis-1/2 lg:basis-1/3"
                   aria-label={`Отзыв ${index + 1} из ${reviews.length}`}
                 >
                   <div className="h-full">
