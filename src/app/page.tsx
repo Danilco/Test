@@ -1,3 +1,4 @@
+import { AboutSection } from "~/app/_components/about";
 import { ContactSection } from "~/app/_components/contact";
 import { HeaderSection } from "~/app/_components/header";
 import { HeroSection } from "~/app/_components/hero";
@@ -12,6 +13,7 @@ export default function Home() {
       <div className="pointer-events-none absolute right-0 bottom-20 h-96 w-96 rounded-full bg-cyan-400/10 blur-3xl" />
       <HeaderSection />
       <HeroSection />
+      <AboutSection />
       <ServicesSection />
       <TeamSection />
       <ReviewsSection />

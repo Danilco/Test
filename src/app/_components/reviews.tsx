@@ -1,34 +1,34 @@
-const reviews = [
-  {
-    text: "За три месяца сын стал чётко произносить звук Р, очень довольны занятиями.",
-    author: "Светлана, мама Тимура",
-  },
-  {
-    text: "Удобный формат онлайн-занятий, дочка занимается с удовольствием.",
-    author: "Айгуль, мама Дианы",
-  },
+const advantages = [
+  { icon: "✨", title: "Индивидуальный подход" },
+  { icon: "🎲", title: "Занятия в игровой форме" },
+  { icon: "💻", title: "Удобный онлайн-формат" },
+  { icon: "📚", title: "Наглядные и интересные материалы" },
+  { icon: "🌷", title: "Доброжелательная атмосфера" },
+  { icon: "📈", title: "Отслеживание прогресса" },
 ];
 
 export function ReviewsSection() {
   return (
-    <section id="reviews" className="relative overflow-hidden bg-slate-100 py-20">
-      <div className="pointer-events-none absolute -right-10 top-12 h-48 w-48 rounded-full bg-sky-400/10 blur-3xl" />
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
-          <p className="text-sm uppercase tracking-[0.4em] text-teal-700">Отзывы</p>
-          <h2 className="mt-4 text-3xl font-semibold text-slate-950 sm:text-4xl">
-            Что говорят родители
+    <section id="reviews" className="section-shell relative overflow-hidden">
+      <div className="pointer-events-none absolute -right-10 top-12 h-48 w-48 rounded-full bg-[rgba(111,206,198,0.10)] blur-3xl" />
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="text-sm font-medium uppercase tracking-[0.28em] text-[var(--color-primary-strong)]">💗 Почему выбирают меня</p>
+          <h2 className="mt-5 text-3xl font-bold text-[var(--color-text)] sm:text-4xl">
+            Детишки чувствуют себя спокойно, а родители видят реальные результаты
           </h2>
         </div>
-        <div className="mt-12 grid gap-6 sm:grid-cols-2">
-          {reviews.map((review) => (
+
+        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {advantages.map((point) => (
             <article
-              key={review.author}
-              className="relative overflow-hidden rounded-3xl bg-white p-8 shadow-sm ring-1 ring-slate-200"
+              key={point.title}
+              className="glass-card rounded-[var(--radius-2xl)] p-6 text-center transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(18,97,90,0.12)]"
             >
-              <div className="absolute left-4 top-4 h-20 w-20 rounded-full bg-cyan-100/80 blur-3xl" />
-              <p className="relative text-base leading-8 text-slate-700">{review.text}</p>
-              <p className="relative mt-6 text-sm font-semibold text-slate-900">{review.author}</p>
+              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-[var(--color-primary-soft)] text-3xl shadow-[inset_0_1px_0_rgba(255,255,255,0.7)]">
+                {point.icon}
+              </div>
+              <h3 className="mt-5 text-xl font-semibold text-[var(--color-text)]">{point.title}</h3>
             </article>
           ))}
         </div>

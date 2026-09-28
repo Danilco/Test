@@ -1,20 +1,39 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function HeaderSection() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="relative overflow-hidden border-b border-slate-200 bg-teal-900 text-white">
-      <div className="pointer-events-none absolute -left-16 top-10 h-72 w-72 rounded-full bg-sky-400/20 blur-3xl" />
-      <div className="pointer-events-none absolute right-0 top-0 h-40 w-40 rounded-full bg-cyan-500/15 blur-3xl" />
-      <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between">
+    <header
+      className={`sticky top-0 z-50 transition-all duration-500 ${
+        scrolled
+          ? "border-b border-[rgba(12,62,60,0.08)] bg-white/70 shadow-[0_10px_30px_rgba(18,97,90,0.08)] backdrop-blur-xl"
+          : "border-b border-transparent bg-[rgba(15,53,56,0.18)] text-white backdrop-blur-sm"
+      }`}
+    >
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_left,_rgba(29,164,150,0.16),transparent_25%)]" />
+      <div className="relative mx-auto flex max-w-7xl flex-col gap-4 px-4 py-3 sm:px-6 lg:flex-row lg:items-center lg:justify-between">
         <div className="flex items-center justify-between gap-4">
-          <div className="text-lg font-semibold">Логопед онлайн</div>
+          <div className={`text-lg font-semibold ${scrolled ? "text-[var(--color-text)]" : "text-white"}`}>
+            Онлайн-логопед
+          </div>
           <button
             type="button"
-            className="inline-flex items-center justify-center rounded-full border border-white/20 p-2 text-white transition hover:bg-white/10 lg:hidden"
+            className={`inline-flex items-center justify-center rounded-full border p-2 transition lg:hidden ${
+              scrolled
+                ? "border-[rgba(12,62,60,0.1)] bg-white/60 text-[var(--color-text)] hover:bg-white"
+                : "border-white/20 bg-white/5 text-white hover:bg-white/10"
+            }`}
             aria-expanded={menuOpen}
             aria-label={menuOpen ? "Закрыть меню" : "Открыть меню"}
             onClick={() => setMenuOpen((current) => !current)}
@@ -41,24 +60,51 @@ export function HeaderSection() {
         </div>
 
         <nav
-          className={`flex flex-col gap-4 rounded-3xl border border-white/10 bg-slate-950/10 p-4 text-sm font-medium text-white transition-all lg:flex-row lg:items-center lg:gap-6 lg:border-0 lg:bg-transparent lg:p-0 ${
+          className={`flex flex-col gap-4 rounded-3xl p-4 text-sm font-medium transition-all lg:flex-row lg:items-center lg:gap-6 lg:p-0 ${
             menuOpen ? "block" : "hidden"
-          } lg:flex`}
+          } lg:flex ${
+            scrolled
+              ? "border border-[rgba(12,62,60,0.08)] bg-white/75 text-[var(--color-text)] shadow-[0_12px_30px_rgba(18,97,90,0.06)]"
+              : "border border-white/10 bg-slate-950/15 text-white lg:border-0 lg:bg-transparent"
+          }`}
           aria-label="Главное меню"
         >
-          <a href="#services" onClick={() => setMenuOpen(false)} className="transition hover:text-slate-200">
-            Услугии
+          <a
+            href="#about"
+            onClick={() => setMenuOpen(false)}
+            className={`transition hover:text-[var(--color-primary-strong)] ${scrolled ? "text-[var(--color-text)]" : "text-white"}`}
+          >
+            Обо мне
           </a>
-          <a href="#team" onClick={() => setMenuOpen(false)} className="transition hover:text-slate-200">
-            Специалисты
+          <a
+            href="#services"
+            onClick={() => setMenuOpen(false)}
+            className={`transition hover:text-[var(--color-primary-strong)] ${scrolled ? "text-[var(--color-text)]" : "text-white"}`}
+          >
+            Услуги
           </a>
-          <a href="#reviews" onClick={() => setMenuOpen(false)} className="transition hover:text-slate-200">
-            Отзывы
+          <a
+            href="#team"
+            onClick={() => setMenuOpen(false)}
+            className={`transition hover:text-[var(--color-primary-strong)] ${scrolled ? "text-[var(--color-text)]" : "text-white"}`}
+          >
+            Как проходят занятия
+          </a>
+          <a
+            href="#reviews"
+            onClick={() => setMenuOpen(false)}
+            className={`transition hover:text-[var(--color-primary-strong)] ${scrolled ? "text-[var(--color-text)]" : "text-white"}`}
+          >
+            Почему выбирают
           </a>
           <a
             href="#contact"
             onClick={() => setMenuOpen(false)}
-            className="inline-flex items-center justify-center rounded-full border border-white/20 bg-white/10 px-4 py-2 text-center transition hover:bg-white/20"
+            className={`inline-flex items-center justify-center rounded-full px-4 py-2.5 text-center transition ${
+              scrolled
+                ? "border border-[rgba(12,62,60,0.08)] bg-white/80 text-[var(--color-text)] hover:bg-white"
+                : "border border-white/20 bg-white/10 text-white hover:bg-white/15"
+            }`}
           >
             Контакты
           </a>
