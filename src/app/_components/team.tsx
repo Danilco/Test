@@ -49,13 +49,12 @@ export function TeamSection() {
         </motion.div>
 
         <div className="relative mt-12">
-          <div className="pointer-events-none absolute left-5 right-5 top-7 hidden h-px bg-[linear-gradient(90deg,rgba(28,161,156,0.1),rgba(28,161,156,0.8),rgba(28,161,156,0.1))] xl:block" />
           <motion.div
             initial={{ scaleX: 0, opacity: 0 }}
             whileInView={{ scaleX: 1, opacity: 1 }}
             viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.9, ease: "easeOut" }}
-            className="pointer-events-none absolute left-8 right-8 top-7 hidden h-px origin-left bg-[linear-gradient(90deg,rgba(28,161,156,0.2),rgba(28,161,156,0.9),rgba(28,161,156,0.2))] xl:block"
+            className="pointer-events-none absolute left-8 right-8 top-3 hidden h-px origin-left bg-[linear-gradient(90deg,rgba(28,161,156,0.2),rgba(28,161,156,0.9),rgba(28,161,156,0.2))] xl:block"
           />
 
           <div className="grid items-stretch gap-6 md:grid-cols-2 xl:grid-cols-4">

@@ -13,11 +13,11 @@ function PhotoFrame() {
     <div className="relative mx-auto w-full max-w-[440px] lg:max-w-[500px]">
       <div className="absolute -bottom-6 left-4 h-[82%] w-[90%] rounded-[2rem] bg-[linear-gradient(135deg,rgba(28,167,160,0.18),rgba(19,65,71,0.08))] shadow-[0_28px_60px_rgba(16,91,96,0.15)]" />
       <div className="relative overflow-hidden rounded-[2.25rem] border border-white/60 bg-[linear-gradient(145deg,#ebfbf9_0%,#d7f6f1_28%,#effefb_100%)] p-3 shadow-[0_28px_60px_rgba(16,91,96,0.12)]">
-        <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] border border-[rgba(12,62,60,0.08)] bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.9),rgba(165,235,228,0.55)_25%,rgba(148,202,196,0.25)_55%,rgba(255,255,255,0.8)_100%)]">
+        <div className="relative aspect-[5/6] overflow-hidden rounded-[1.75rem] border border-[rgba(12,62,60,0.08)] bg-[radial-gradient(circle_at_top_left,_rgba(255,255,255,0.9),rgba(165,235,228,0.55)_25%,rgba(148,202,196,0.25)_55%,rgba(255,255,255,0.8)_100%)]">
           <img
             src="/images/hero.png"
             alt="Логопед помогает ребёнку говорить уверенно"
-            className="h-full w-full object-cover"
+            className="h-full w-full scale-[1.06] object-cover object-[center_16%]"
           />
         </div>
       </div>

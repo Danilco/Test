@@ -8,14 +8,14 @@ const footerLinks = [
   { label: "Услуги", href: "#services" },
   { label: "Как проходят занятия", href: "#team" },
   { label: "Почему выбирают", href: "#reviews" },
-  { label: "Отзывы", href: "#testimonials" },
+  { label: "Отзывы", href: "#reviews" },
   { label: "Контакты", href: "#contact" },
 ];
 
 const contactItems = [
-  { label: "Telegram", value: "t.me/online_logoped", href: "https://t.me/online_logoped", icon: Send },
-  { label: "WhatsApp", value: "+7 (999) 000-00-00", href: "https://wa.me/79990000000", icon: MessageCircle },
-  { label: "E-mail", value: "hello@online-logoped.ru", href: "mailto:hello@online-logoped.ru", icon: Mail },
+  { label: "Telegram", value: "", href: "", icon: Send },
+  { label: "WhatsApp", value: "+7 (771) 160-0810", href: "https://wa.me/77711600810", icon: MessageCircle },
+  { label: "Instagram", value: "@logopedanastasia13", href: "https://www.instagram.com/logopedanastasia13?stkn=OHluYndiYzY2Mmdw", icon: MessageCircle },
 ];
 
 export function ContactSection() {
@@ -55,16 +55,16 @@ export function ContactSection() {
               <Star className="h-4 w-4" />
               <span>Запишитесь на первое занятие</span>
             </p>
-            <h2 className="mt-5 text-3xl font-bold text-white sm:text-4xl">
+            <h2 className="mt-5 text-3xl font-bold text-white sm:text-4xl" style={{ color: "#ffffff" }}>
               Если вы хотите помочь ребёнку развивать речь, начните с консультации.
             </h2>
 
             <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
-              <a href="mailto:hello@online-logoped.ru" className="btn-primary cta-pulse px-7 py-3.5 text-base shadow-[0_18px_36px_rgba(28,167,160,0.35)]">
+              <a href="https://wa.me/77711600810" className="btn-primary cta-pulse px-7 py-3.5 text-base shadow-[0_18px_36px_rgba(28,167,160,0.35)]">
                 Записаться
                 <ArrowRight className="h-4 w-4" />
               </a>
-              <a href="https://t.me/online_logoped" className="btn-glass px-7 py-3.5 text-base text-white hover:text-white">
+              <a href="https://www.instagram.com/logopedanastasia13?stkn=OHluYndiYzY2Mmdw" className="btn-glass bg-white/12 px-7 py-3.5 text-base text-white hover:text-white">
                 Задать вопрос
               </a>
             </div>
@@ -90,7 +90,7 @@ export function ContactSection() {
               </div>
             </div>
 
-            <nav aria-label="Подвал" className="flex flex-wrap gap-x-5 gap-y-3 text-sm text-[rgba(230,246,245,0.82)]">
+            <nav aria-label="Подвал" className="flex flex-1 flex-wrap items-center justify-between gap-x-5 gap-y-3 text-sm text-[rgba(230,246,245,0.82)] lg:max-w-[38rem]">
               {footerLinks.map(({ label, href }) => (
                 <a key={label} href={href} className="transition hover:text-white">
                   {label}
@@ -98,15 +98,26 @@ export function ContactSection() {
               ))}
             </nav>
 
-            <div className="space-y-3 text-sm text-[rgba(230,246,245,0.82)]">
+            <div className="space-y-3 text-sm text-[rgba(230,246,245,0.82)] lg:min-w-[18rem]">
               {contactItems.map(({ label, value, href, icon: Icon }) => (
-                <a key={label} href={href} className="flex items-center gap-3 transition hover:text-white">
+                <a
+                  key={label}
+                  href={href || "#"}
+                  onClick={(event) => {
+                    if (!href) {
+                      event.preventDefault();
+                    }
+                  }}
+                  className="flex items-center gap-3 transition hover:text-white"
+                >
                   <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/5 text-[rgba(189,246,239,0.9)] ring-1 ring-white/10">
                     <Icon className="h-4 w-4" />
                   </span>
                   <span>
                     <span className="block text-[10px] uppercase tracking-[0.18em] text-[rgba(230,246,245,0.62)]">{label}</span>
-                    <span className="block text-sm text-[rgba(230,246,245,0.82)]">{value}</span>
+                    <span className={`block ${label === "Instagram" ? "whitespace-nowrap text-sm sm:text-[15px]" : "text-sm"} text-[rgba(230,246,245,0.82)]`}>
+                      {value || "—"}
+                    </span>
                   </span>
                 </a>
               ))}
@@ -117,7 +128,7 @@ export function ContactSection() {
             <span>© Онлайн-логопед</span>
             <div className="flex items-center gap-2 text-[rgba(230,246,245,0.66)]">
               <MapPin className="h-4 w-4" />
-              <span>Онлайн-консультации по всей России</span>
+              <span>Онлайн-консультации по Казахстану</span>
             </div>
           </div>
         </footer>
@@ -129,7 +140,7 @@ export function ContactSection() {
         }`}
       >
         <a
-          href="mailto:hello@online-logoped.ru"
+          href="https://wa.me/77711600810"
           className="btn-primary cta-pulse mx-auto flex w-full max-w-sm items-center justify-center gap-2 px-5 py-3.5 text-sm shadow-[0_20px_40px_rgba(28,167,160,0.28)]"
         >
           Записаться

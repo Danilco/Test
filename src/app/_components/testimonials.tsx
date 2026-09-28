@@ -1,20 +1,199 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import { motion } from "framer-motion";
-import { ChevronLeft, ChevronRight, Quote, Star } from "lucide-react";
+import { Camera, ChevronLeft, ChevronRight, MessageCircle, Quote, X } from "lucide-react";
 
-import { reviews } from "~/data/reviews";
+import { reviews, type Review } from "~/data/reviews";
 
 const AUTO_SCROLL_MS = 5000;
+
+function parseSourceLabel(source: Review["source"]) {
+  return source === "instagram" ? "Instagram" : "WhatsApp";
+}
+
+function ReviewCard({ review, onOpen }: { review: Review; onOpen: (review: Review) => void }) {
+  const paragraphs = useMemo(() => review.text.split(/\n\s*\n/).filter(Boolean), [review.text]);
+  const sourceLabel = parseSourceLabel(review.source);
+  const Icon = review.source === "instagram" ? Camera : MessageCircle;
+
+  return (
+    <article className="flex h-full flex-col rounded-[2rem] border border-[rgba(12,62,60,0.08)] bg-white/75 p-5 shadow-[0_16px_36px_rgba(18,97,90,0.06)] ring-1 ring-white/50 transition-all duration-500 sm:p-6">
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex min-w-0 items-center gap-3">
+          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[linear-gradient(135deg,#9af2e5,#6edcc3)] text-[#0d4b48] shadow-[inset_0_1px_0_rgba(255,255,255,0.7)]">
+            <Icon className="h-4 w-4" />
+          </div>
+          <div className="min-w-0">
+            <p className="text-[0.72rem] font-medium uppercase tracking-[0.2em] text-[rgba(16,36,46,0.7)]">Отзыв родителя</p>
+            <p className="mt-1 text-[0.76rem] text-[rgba(58,73,84,0.8)]">{sourceLabel}</p>
+          </div>
+        </div>
+
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[rgba(28,167,160,0.08)] text-[var(--color-primary-strong)]">
+          <Quote className="h-4 w-4" />
+        </div>
+      </div>
+
+      {review.tag ? (
+        <div className="mt-4 inline-flex w-fit items-center rounded-full border border-[rgba(28,167,160,0.18)] bg-[rgba(28,167,160,0.08)] px-2.5 py-1 text-[0.68rem] font-medium text-[var(--color-primary-strong)]">
+          {review.tag}
+        </div>
+      ) : null}
+
+      <div className="relative mt-4 flex-1">
+        <p
+          className="text-[15px] leading-[1.6] text-[#10242e]"
+          style={{
+            display: "-webkit-box",
+            overflow: "hidden",
+            WebkitBoxOrient: "vertical",
+            WebkitLineClamp: 6,
+            textWrap: "pretty",
+          }}
+        >
+          {paragraphs.join("\n\n")}
+        </p>
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-white to-transparent" />
+      </div>
+
+      <button
+        type="button"
+        onClick={() => onOpen(review)}
+        className="mt-4 w-fit text-sm font-semibold text-[var(--color-primary-strong)] underline-offset-4 hover:underline"
+      >
+        Читать полностью
+      </button>
+    </article>
+  );
+}
+
+function ReviewDialog({ review, onClose }: { review: Review | null; onClose: () => void }) {
+  const modalRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    if (!review) {
+      return;
+    }
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        onClose();
+      }
+
+      if (event.key !== "Tab" || !modalRef.current) {
+        return;
+      }
+
+      const focusable = Array.from(
+        modalRef.current.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+        ),
+      ).filter((element) => !element.hasAttribute("disabled"));
+
+      if (!focusable.length) {
+        event.preventDefault();
+        modalRef.current.focus();
+        return;
+      }
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const activeElement = document.activeElement as HTMLElement | null;
+
+      if (event.shiftKey && activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    setTimeout(() => {
+      modalRef.current?.querySelector<HTMLElement>("button, [href]")?.focus();
+    }, 0);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [review, onClose]);
+
+  if (!review) {
+    return null;
+  }
+
+  const sourceLabel = parseSourceLabel(review.source);
+  const Icon = review.source === "instagram" ? Camera : MessageCircle;
+
+  return (
+    <div
+      className="fixed inset-0 z-[80] flex items-center justify-center bg-[rgba(10,18,22,0.45)] px-4 py-6 backdrop-blur-[2px]"
+      onClick={onClose}
+      role="presentation"
+    >
+      <div
+        ref={modalRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="review-modal-title"
+        tabIndex={-1}
+        className="relative w-full max-w-2xl rounded-[2rem] border border-[rgba(12,62,60,0.08)] bg-white p-5 shadow-[0_30px_90px_rgba(10,25,28,0.22)] sm:p-7"
+        onClick={(event) => event.stopPropagation()}
+      >
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Закрыть отзыв"
+          className="absolute right-4 top-4 inline-flex h-10 w-10 items-center justify-center rounded-full border border-[rgba(12,62,60,0.08)] bg-[rgba(28,167,160,0.06)] text-[var(--color-text)] transition hover:bg-[rgba(28,167,160,0.12)]"
+        >
+          <X className="h-4 w-4" />
+        </button>
+
+        <div className="flex items-center gap-3 pr-12">
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[linear-gradient(135deg,#9af2e5,#6edcc3)] text-[#0d4b48] shadow-[inset_0_1px_0_rgba(255,255,255,0.7)]">
+            <Icon className="h-5 w-5" />
+          </div>
+
+          <div>
+            <p id="review-modal-title" className="text-[0.72rem] font-medium uppercase tracking-[0.2em] text-[rgba(16,36,46,0.7)]">
+              Отзыв родителя
+            </p>
+            <p className="mt-1 text-sm text-[rgba(58,73,84,0.8)]">{sourceLabel}</p>
+          </div>
+        </div>
+
+        {review.tag ? (
+          <div className="mt-4 inline-flex w-fit items-center rounded-full border border-[rgba(28,167,160,0.18)] bg-[rgba(28,167,160,0.08)] px-2.5 py-1 text-[0.68rem] font-medium text-[var(--color-primary-strong)]">
+            {review.tag}
+          </div>
+        ) : null}
+
+        <div className="mt-5 max-h-[70vh] overflow-y-auto pr-1 text-[15px] leading-[1.7] text-[#10242e]">
+          {review.text.split(/\n\s*\n/).filter(Boolean).map((paragraph, index) => (
+            <p key={`${review.id}-paragraph-${index}`} className="mb-4 last:mb-0 whitespace-pre-line">
+              {paragraph}
+            </p>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export function TestimonialsSection() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [progress, setProgress] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const [isTouched, setIsTouched] = useState(false);
+  const [activeReview, setActiveReview] = useState<Review | null>(null);
 
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
@@ -74,12 +253,12 @@ export function TestimonialsSection() {
       return;
     }
 
-    if (isHovered || isTouched) {
+    if (isHovered || isTouched || activeReview) {
       autoplay.stop();
     } else {
       autoplay.play();
     }
-  }, [emblaApi, isHovered, isTouched]);
+  }, [activeReview, emblaApi, isHovered, isTouched]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -120,56 +299,25 @@ export function TestimonialsSection() {
 
         <div className="mt-10">
           <div
-            className="embla -mx-3 overflow-hidden py-6 sm:py-8"
+            className="embla -mx-6 overflow-x-clip overflow-y-visible bg-transparent py-6 sm:-mx-8 sm:py-8"
             ref={emblaRef}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             onTouchStart={() => setIsTouched(true)}
             onTouchEnd={() => setIsTouched(false)}
           >
-            <div className="embla__container flex touch-pan-y select-none">
-              {reviews.map((review, index) => {
-                const isActive = selectedIndex === index;
-
-                return (
-                  <div
-                    key={review.id}
-                    className="embla__slide min-w-0 shrink-0 px-2 md:basis-1/2 lg:basis-1/3"
-                    aria-label={`Отзыв ${index + 1} из ${reviews.length}`}
-                  >
-                    <div
-                      className={`flex h-full flex-col rounded-[2rem] border p-6 shadow-[0_16px_36px_rgba(18,97,90,0.06)] transition-all duration-500 ${
-                        isActive
-                          ? "border-[rgba(28,167,160,0.22)] bg-white/70 shadow-[0_28px_48px_rgba(18,97,90,0.14)]"
-                          : "border-[rgba(12,62,60,0.06)] bg-white/35 opacity-80"
-                      }`}
-                    >
-                      <div className="flex items-start justify-between gap-4">
-                        <div className="flex items-center gap-4">
-                          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[linear-gradient(135deg,#8fe9df,#64c8b7)] text-sm font-bold text-[#0d4b48] shadow-[inset_0_1px_0_rgba(255,255,255,0.7)]">
-                            {review.initials}
-                          </div>
-                          <div>
-                            <p className="text-base font-semibold text-[var(--color-text)]">{review.name}</p>
-                            <p className="text-xs uppercase tracking-[0.12em] text-[rgba(16,36,46,0.8)]">{review.label}</p>
-                          </div>
-                        </div>
-                        <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[rgba(28,167,160,0.08)] text-[var(--color-primary-strong)]">
-                          <Quote className="h-5 w-5" />
-                        </div>
-                      </div>
-
-                      <div className="mt-6 flex gap-1 text-[var(--color-primary-strong)]">
-                        {Array.from({ length: review.rating }).map((_, starIndex) => (
-                          <Star key={`${review.id}-${starIndex}`} className="h-4 w-4 fill-current" />
-                        ))}
-                      </div>
-
-                      <p className="mt-5 flex-1 text-base leading-8 text-[var(--color-text-soft)]">“{review.text}”</p>
-                    </div>
+            <div className="embla__container flex touch-pan-y select-none items-stretch">
+              {reviews.map((review, index) => (
+                <div
+                  key={review.id}
+                  className="embla__slide min-w-0 shrink-0 px-2 md:basis-1/2 lg:basis-1/3"
+                  aria-label={`Отзыв ${index + 1} из ${reviews.length}`}
+                >
+                  <div className="h-full">
+                    <ReviewCard review={review} onOpen={setActiveReview} />
                   </div>
-                );
-              })}
+                </div>
+              ))}
             </div>
           </div>
 
@@ -204,7 +352,7 @@ export function TestimonialsSection() {
               <div className="h-1.5 w-full max-w-[250px] overflow-hidden rounded-full bg-[rgba(28,167,160,0.08)]">
                 <div
                   className="h-full rounded-full bg-[linear-gradient(90deg,#73ded3,#1aa39f)] transition-[width] duration-500 ease-out"
-                  style={{ width: `${progress + 1}%` }}
+                  style={{ width: `${Math.min(Math.max(progress + 1, 0), 100)}%` }}
                 />
               </div>
             </div>
@@ -220,6 +368,8 @@ export function TestimonialsSection() {
           </div>
         </div>
       </div>
+
+      <ReviewDialog review={activeReview} onClose={() => setActiveReview(null)} />
     </motion.section>
   );
 }

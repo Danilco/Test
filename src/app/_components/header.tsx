@@ -92,7 +92,7 @@ export function HeaderSection() {
             Почему выбирают
           </a>
           <a
-            href="#testimonials"
+            href="#reviews"
             onClick={() => setMenuOpen(false)}
             className="transition text-white/90 hover:text-white"
           >
