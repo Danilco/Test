@@ -230,11 +230,13 @@ export function TestimonialsSection() {
     }
 
     const update = () => {
-      setSelectedIndex(emblaApi.selectedScrollSnap());
-      const progressValue = ((emblaApi.scrollProgress() ?? 0) * 100) % 100;
+      const nextIndex = emblaApi.selectedScrollSnap();
+      setSelectedIndex(nextIndex);
+      const progressValue = ((nextIndex + 1) / reviews.length) * 100;
       setProgress(progressValue);
     };
 
+    emblaApi.scrollTo(0, true);
     update();
     emblaApi.on("select", update);
     emblaApi.on("pointerDown", () => setIsTouched(true));
@@ -335,30 +337,21 @@ export function TestimonialsSection() {
               <ChevronLeft className="h-5 w-5" />
             </button>
 
-            <div className="flex flex-col items-center gap-3">
-              <div className="flex items-center gap-2">
-                {reviews.map((review, index) => (
-                  <button
-                    key={review.id}
-                    type="button"
-                    onClick={() => scrollTo(index)}
-                    aria-label={`Показать отзыв ${index + 1}`}
-                    aria-pressed={selectedIndex === index}
-                    className={`h-2.5 rounded-full border border-[rgba(12,62,60,0.08)] transition-all duration-300 ${
-                      selectedIndex === index
-                        ? "w-10 bg-[linear-gradient(90deg,#60d4ca,#1da7a0)] shadow-[0_8px_18px_rgba(28,167,160,0.25)]"
-                        : "w-2.5 bg-[rgba(28,167,160,0.24)]"
-                    }`}
-                  />
-                ))}
-              </div>
-
-              <div className="h-1.5 w-full max-w-[250px] overflow-hidden rounded-full bg-[rgba(28,167,160,0.08)]">
-                <div
-                  className="h-full rounded-full bg-[linear-gradient(90deg,#73ded3,#1aa39f)] transition-[width] duration-500 ease-out"
-                  style={{ width: `${Math.min(Math.max(progress + 1, 0), 100)}%` }}
+            <div className="flex items-center gap-2">
+              {reviews.map((review, index) => (
+                <button
+                  key={review.id}
+                  type="button"
+                  onClick={() => scrollTo(index)}
+                  aria-label={`Показать отзыв ${index + 1}`}
+                  aria-pressed={selectedIndex === index}
+                  className={`h-3 w-3 rounded-full border border-[rgba(12,62,60,0.08)] transition-all duration-300 ${
+                    selectedIndex === index
+                      ? "bg-[linear-gradient(90deg,#60d4ca,#1da7a0)] shadow-[0_8px_18px_rgba(28,167,160,0.25)]"
+                      : "bg-[rgba(28,167,160,0.24)]"
+                  }`}
                 />
-              </div>
+              ))}
             </div>
 
             <button
